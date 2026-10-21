@@ -57,7 +57,7 @@ enum KeyboardLayout {
         return latin
     }
 
-    static func translate(_ virtualKey: UInt16, in layout: Data?, modifiers: UInt32 = 0) -> Character? {
+    private static func translate(_ virtualKey: UInt16, in layout: Data?) -> Character? {
         guard let data = layout else { return nil }
         return data.withUnsafeBytes { raw -> Character? in
             guard let base = raw.baseAddress?.assumingMemoryBound(to: UCKeyboardLayout.self) else { return nil }
@@ -69,7 +69,7 @@ enum KeyboardLayout {
                 base,
                 virtualKey,
                 UInt16(kUCKeyActionDown),
-                modifiers,
+                0,
                 UInt32(LMGetKbdType()),
                 UInt32(kUCKeyTranslateNoDeadKeysMask),
                 &deadKeyState,
@@ -120,7 +120,7 @@ enum KeyboardLayout {
     }
 
     static func currentOrFallbackLayoutData() -> Data? {
-        if UserDefaults.standard.bool(forKey: "Switcher.alwaysUseEnglishKeyboard") {
+        if UserDefaults.standard.bool(forKey: Preferences.Keys.alwaysUseEnglishKeyboard) {
             return englishLayoutData()
         }
         if let src = TISCopyCurrentKeyboardInputSource()?.takeRetainedValue(),
@@ -139,7 +139,7 @@ enum KeyboardLayout {
 
     /// The most recently used ASCII-capable keyboard layout, the current one when it is ASCII-capable.
     static func asciiCapableLayoutData() -> Data? {
-        if UserDefaults.standard.bool(forKey: "Switcher.alwaysUseEnglishKeyboard") {
+        if UserDefaults.standard.bool(forKey: Preferences.Keys.alwaysUseEnglishKeyboard) {
             return englishLayoutData()
         }
         guard let src = TISCopyCurrentASCIICapableKeyboardLayoutInputSource()?.takeRetainedValue() else { return nil }

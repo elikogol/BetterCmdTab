@@ -364,7 +364,7 @@ final class SwitcherPanesViewController: SettingsTabViewController {
     }
 
     private func buildEnglishKeyboardSection() {
-        let english = addSection(title: String(localized: "Always use English keyboard mapping"), anchor: SearchID.englishKeyboard)
+        let english = addSection(title: String(localized: "Input language"), anchor: SettingsAnchor.inputLanguage)
         addRow(to: english, icon: "flask.fill",
                title: String(localized: "These features are unstable"),
                subtitle: String(localized: "Off by default. They may change or break."))

@@ -50,6 +50,7 @@ enum SettingsAnchor {
     static let keyboard = "controls.keyboard"
     static let letterJump = "controls.letterJump"
     static let oneHandHints = "controls.oneHandHints"
+    static let inputLanguage = "controls.inputLanguage"
     static let search = "controls.search"
     static let mouse = "controls.mouse"
     static let hoverActions = "controls.hoverActions"
@@ -438,7 +439,7 @@ enum SettingsCatalog {
              String(localized: "Tap Shift to step backwards"), ["shift", "backwards", "back", "reverse", "tap shift", "cmd shift tab", "windows"]),
         item(SearchID.backtickReverse, .controls, SettingsAnchor.keyboard, String(localized: "Controls"), String(localized: "Keyboard"),
              String(localized: "Use window-switch shortcut to step backwards"), ["backtick", "tilde", "cmd backtick", "command backtick", "window shortcut", "reverse", "backwards", "native"]),
-        item(SearchID.englishKeyboard, .controls, SearchID.englishKeyboard, String(localized: "Controls"), String(localized: "Keyboard"),
+        item(SearchID.englishKeyboard, .controls, SettingsAnchor.inputLanguage, String(localized: "Controls"), String(localized: "Input language"),
              String(localized: "Always use English keyboard mapping"),
              ["english", "US", "keyboard", "language", "layout", "hebrew", "search"]),
         item(SearchID.vimNavigation, .controls, SettingsAnchor.keyboard, String(localized: "Controls"), String(localized: "Keyboard"),

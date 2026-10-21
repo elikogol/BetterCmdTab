@@ -923,8 +923,10 @@ final class SwitcherController: SwitcherViewDelegate {
             .sink { [weak self] enabled in self?.hotkey.setClickOutsideDismiss(enabled) }
             .store(in: &cancellables)
 
-        KeyboardLayout.reload()
+        // Both layout caches read the key from UserDefaults; @Published fires in willSet,
+        // so receive(on:) defers the reload until didSet has written it.
         Preferences.shared.$alwaysUseEnglishKeyboard
+            .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 KeyboardLayout.reload()
